@@ -7,3 +7,6 @@ __pycache__/
 # Root-level duplicates; canonical copies live in data/raw/ and docs/
 /Survey_Results_UC.csv
 /DPCN_Assignment_1.pdf
+
+# Report source; the submitted artifact is report/report.pdf
+report/report.html
