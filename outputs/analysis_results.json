@@ -1,0 +1,527 @@
+{
+  "global": {
+    "nodes": 87,
+    "edges": 304,
+    "density": 0.08126169473402833,
+    "mean_degree": 6.988505747126437,
+    "median_degree": 7.0,
+    "min_degree": 1,
+    "max_degree": 18,
+    "degree_std": 3.0480426539527663,
+    "degree_skew": 0.791533524400637,
+    "degree_cv": 0.43615084028600437,
+    "isolates": 0,
+    "components": 1,
+    "giant_fraction": 1.0,
+    "avg_clustering": 0.22869676901117064,
+    "transitivity": 0.22027027027027027,
+    "avg_shortest_path": 2.608660785886127,
+    "diameter": 5,
+    "radius": 3,
+    "degree_assortativity": 0.036946375534450696,
+    "er_avg_clustering": 0.07958684902168674,
+    "er_avg_shortest_path": 2.488755561340236,
+    "clustering_ratio": 2.873549736198913,
+    "small_world_sigma": 2.7414690807810507,
+    "mean_edge_weight": 0.2766016090424549
+  },
+  "communities": {
+    "modularity": 0.42991695510663563,
+    "n_communities": 8,
+    "sizes": {
+      "0": 12,
+      "1": 8,
+      "2": 7,
+      "3": 12,
+      "4": 9,
+      "5": 16,
+      "6": 15,
+      "7": 8
+    },
+    "null_modularity_mean": 0.33359537637976516,
+    "null_modularity_std": 0.01010628753092071,
+    "modularity_z": 9.530856749540284,
+    "modularity_p": 0.0,
+    "co_assignment_within": 0.7147659574468085,
+    "co_assignment_between": 0.06740446346682973,
+    "n_restarts": 100
+  },
+  "community_profiles": [
+    {
+      "community": 0,
+      "size": 12,
+      "internal_edges": 21,
+      "internal_density": 0.3181818181818182,
+      "mean_response": 0.9805555555555555,
+      "mean_T": 0.8111111111111111,
+      "std_T": 1.0399231218302603,
+      "mean_E": 0.9833333333333333,
+      "std_E": 1.0907175640234614,
+      "mean_S": 1.1055555555555556,
+      "std_S": 0.8015154795357629,
+      "mean_V": 1.0222222222222221,
+      "std_V": 0.7906969950941384
+    },
+    {
+      "community": 1,
+      "size": 8,
+      "internal_edges": 12,
+      "internal_density": 0.42857142857142855,
+      "mean_response": 1.1041666666666667,
+      "mean_T": 0.775,
+      "std_T": 1.0726743457829317,
+      "mean_E": 0.875,
+      "std_E": 1.2739305945238404,
+      "mean_S": 1.2416666666666667,
+      "std_S": 0.8598986977011439,
+      "mean_V": 1.525,
+      "std_V": 0.8092168638709337
+    },
+    {
+      "community": 2,
+      "size": 7,
+      "internal_edges": 11,
+      "internal_density": 0.5238095238095238,
+      "mean_response": 1.2785714285714285,
+      "mean_T": 0.9333333333333333,
+      "std_T": 0.9432622062521056,
+      "mean_E": 1.1904761904761905,
+      "std_E": 1.1443442705426587,
+      "mean_S": 1.3714285714285714,
+      "std_S": 0.9120680522132829,
+      "mean_V": 1.619047619047619,
+      "std_V": 0.5612649240940635
+    },
+    {
+      "community": 3,
+      "size": 12,
+      "internal_edges": 25,
+      "internal_density": 0.3787878787878788,
+      "mean_response": 0.9638888888888889,
+      "mean_T": 0.9111111111111111,
+      "std_T": 0.9110672045861937,
+      "mean_E": 0.8055555555555556,
+      "std_E": 0.8194372113011787,
+      "mean_S": 1.0055555555555555,
+      "std_S": 0.8422981479741573,
+      "mean_V": 1.1333333333333333,
+      "std_V": 0.7578269432909163
+    },
+    {
+      "community": 4,
+      "size": 9,
+      "internal_edges": 18,
+      "internal_density": 0.5,
+      "mean_response": 1.3277777777777777,
+      "mean_T": 1.362962962962963,
+      "std_T": 0.8517533050407681,
+      "mean_E": 0.7851851851851852,
+      "std_E": 1.3066145452765083,
+      "mean_S": 1.5333333333333334,
+      "std_S": 0.6889316843284549,
+      "mean_V": 1.6296296296296295,
+      "std_V": 0.6198307513423026
+    },
+    {
+      "community": 5,
+      "size": 16,
+      "internal_edges": 44,
+      "internal_density": 0.36666666666666664,
+      "mean_response": 1.3,
+      "mean_T": 0.9291666666666667,
+      "std_T": 1.0624748745901174,
+      "mean_E": 1.0,
+      "std_E": 1.2238904974673164,
+      "mean_S": 1.6083333333333334,
+      "std_S": 0.5828200571084714,
+      "mean_V": 1.6625,
+      "std_V": 0.5626539770657893
+    },
+    {
+      "community": 6,
+      "size": 15,
+      "internal_edges": 26,
+      "internal_density": 0.24761904761904763,
+      "mean_response": 1.1288888888888888,
+      "mean_T": 1.12,
+      "std_T": 0.9396047801374484,
+      "mean_E": 0.92,
+      "std_E": 1.107119815428432,
+      "mean_S": 1.2177777777777778,
+      "std_S": 0.8512828787674164,
+      "mean_V": 1.2577777777777779,
+      "std_V": 0.7764643104462853
+    },
+    {
+      "community": 7,
+      "size": 8,
+      "internal_edges": 10,
+      "internal_density": 0.35714285714285715,
+      "mean_response": 1.0895833333333333,
+      "mean_T": 1.15,
+      "std_T": 0.9226377968637968,
+      "mean_E": 0.6666666666666666,
+      "std_E": 1.1691649920825906,
+      "mean_S": 1.1083333333333334,
+      "std_S": 1.0273228104460375,
+      "mean_V": 1.4333333333333333,
+      "std_V": 0.785727017976798
+    }
+  ],
+  "top_discriminating": [
+    {
+      "code": "E03",
+      "topic": "E",
+      "statement": "Class attendance should be compulsory for all courses.",
+      "H": 36.16475138291586,
+      "p": 6.7483441417506865e-06,
+      "spread": 2.111111111111111,
+      "c0": -0.6666666666666666,
+      "c1": -1.125,
+      "c2": -1.4285714285714286,
+      "c3": 0.3333333333333333,
+      "c4": -1.7777777777777777,
+      "c5": -1.625,
+      "c6": -1.2,
+      "c7": 0.125,
+      "p_adj": 0.0003814165971344658
+    },
+    {
+      "code": "E11",
+      "topic": "E",
+      "statement": "University curricula should be updated more frequently to match emerging technologies.",
+      "H": 34.58659775640491,
+      "p": 1.3373311529462492e-05,
+      "spread": 1.1875,
+      "c0": 1.9166666666666667,
+      "c1": 1.5,
+      "c2": 1.8571428571428572,
+      "c3": 0.75,
+      "c4": 1.8888888888888888,
+      "c5": 1.9375,
+      "c6": 1.5333333333333334,
+      "c7": 1.625,
+      "p_adj": 0.0003814165971344658
+    },
+    {
+      "code": "V13",
+      "topic": "V",
+      "statement": "Companies should be held accountable for the environmental impacts of their activities.",
+      "H": 33.76357159371834,
+      "p": 1.9070829856723292e-05,
+      "spread": 1.0833333333333335,
+      "c0": 0.9166666666666666,
+      "c1": 1.875,
+      "c2": 2.0,
+      "c3": 1.4166666666666667,
+      "c4": 1.8888888888888888,
+      "c5": 1.9375,
+      "c6": 1.7333333333333334,
+      "c7": 1.875,
+      "p_adj": 0.0003814165971344658
+    },
+    {
+      "code": "S09",
+      "topic": "S",
+      "statement": "Universities should promote an inclusive environment where different viewpoints can be discussed respectfully.",
+      "H": 29.346880740149885,
+      "p": 0.00012505766330279223,
+      "spread": 0.8888888888888888,
+      "c0": 1.0,
+      "c1": 1.5,
+      "c2": 1.8571428571428572,
+      "c3": 1.3333333333333333,
+      "c4": 1.8888888888888888,
+      "c5": 1.875,
+      "c6": 1.3333333333333333,
+      "c7": 1.125,
+      "p_adj": 0.0018758649495418834
+    },
+    {
+      "code": "T12",
+      "topic": "T",
+      "statement": "Governments should introduce stricter regulations for Artificial Intelligence.",
+      "H": 28.388894648394313,
+      "p": 0.00018691876188316477,
+      "spread": 2.0634920634920633,
+      "c0": 1.0833333333333333,
+      "c1": 0.5,
+      "c2": -0.2857142857142857,
+      "c3": 0.75,
+      "c4": 1.7777777777777777,
+      "c5": 1.625,
+      "c6": 0.9333333333333333,
+      "c7": 1.5,
+      "p_adj": 0.002243025142597977
+    },
+    {
+      "code": "E10",
+      "topic": "E",
+      "statement": "Universities should prioritize innovation and problem-solving over rote learning.",
+      "H": 27.66911224021484,
+      "p": 0.0002524079307199888,
+      "spread": 1.0555555555555554,
+      "c0": 1.3333333333333333,
+      "c1": 1.875,
+      "c2": 1.5714285714285714,
+      "c3": 0.8333333333333334,
+      "c4": 1.8888888888888888,
+      "c5": 1.8125,
+      "c6": 1.6666666666666667,
+      "c7": 1.25,
+      "p_adj": 0.0024841585842429836
+    },
+    {
+      "code": "E02",
+      "topic": "E",
+      "statement": "Traditional written examinations accurately measure a student's knowledge.",
+      "H": 27.149936015389713,
+      "p": 0.00031319109750634213,
+      "spread": 1.6666666666666665,
+      "c0": 0.08333333333333333,
+      "c1": -0.875,
+      "c2": -0.7142857142857143,
+      "c3": 0.6666666666666666,
+      "c4": -1.0,
+      "c5": -0.625,
+      "c6": 0.6,
+      "c7": -0.125,
+      "p_adj": 0.0024841585842429836
+    },
+    {
+      "code": "V14",
+      "topic": "V",
+      "statement": "International cooperation is necessary to effectively address environmental challenges.",
+      "H": 26.839286520738966,
+      "p": 0.0003562200312734883,
+      "spread": 0.9166666666666667,
+      "c0": 1.0833333333333333,
+      "c1": 2.0,
+      "c2": 2.0,
+      "c3": 1.0833333333333333,
+      "c4": 1.8888888888888888,
+      "c5": 1.6875,
+      "c6": 1.6666666666666667,
+      "c7": 1.375,
+      "p_adj": 0.0024841585842429836
+    },
+    {
+      "code": "T14",
+      "topic": "T",
+      "statement": "Social media algorithms contribute to opinion polarization.",
+      "H": 26.730486370951724,
+      "p": 0.00037262378763644753,
+      "spread": 1.3333333333333335,
+      "c0": 0.6666666666666666,
+      "c1": 1.25,
+      "c2": 1.2857142857142858,
+      "c3": 1.4166666666666667,
+      "c4": 2.0,
+      "c5": 1.75,
+      "c6": 1.9333333333333333,
+      "c7": 1.5,
+      "p_adj": 0.0024841585842429836
+    },
+    {
+      "code": "E04",
+      "topic": "E",
+      "statement": "High-quality online learning can effectively complement classroom teaching.",
+      "H": 25.598637956446183,
+      "p": 0.0005939477122407196,
+      "spread": 1.9464285714285714,
+      "c0": -0.25,
+      "c1": 1.375,
+      "c2": 1.5714285714285714,
+      "c3": 0.3333333333333333,
+      "c4": -0.3333333333333333,
+      "c5": 0.8125,
+      "c6": 0.5333333333333333,
+      "c7": -0.375,
+      "p_adj": 0.0032596088909767093
+    }
+  ],
+  "n_items_significant": 31,
+  "topic_metrics": {
+    "T": {
+      "edges": 221,
+      "density": 0.0590751136059877,
+      "avg_clustering": 0.29336799854041234,
+      "components": 4,
+      "giant_fraction": 0.9655172413793104,
+      "modularity": 0.584076220754225,
+      "n_communities": 10,
+      "isolates": 3
+    },
+    "E": {
+      "edges": 267,
+      "density": 0.07137129109863673,
+      "avg_clustering": 0.3248625576211783,
+      "components": 1,
+      "giant_fraction": 1.0,
+      "modularity": 0.5401282898008976,
+      "n_communities": 6,
+      "isolates": 0
+    },
+    "S": {
+      "edges": 245,
+      "density": 0.06549051055867415,
+      "avg_clustering": 0.3578991251405044,
+      "components": 3,
+      "giant_fraction": 0.9655172413793104,
+      "modularity": 0.5492478625632455,
+      "n_communities": 8,
+      "isolates": 1
+    },
+    "V": {
+      "edges": 281,
+      "density": 0.07511360598770382,
+      "avg_clustering": 0.3388766087041949,
+      "components": 1,
+      "giant_fraction": 1.0,
+      "modularity": 0.5233853766480361,
+      "n_communities": 6,
+      "isolates": 0
+    }
+  },
+  "topic_agreement": [
+    {
+      "topic_a": "T",
+      "topic_b": "E",
+      "edges_a": 221,
+      "edges_b": 267,
+      "shared": 23,
+      "jaccard": 0.04946236559139785
+    },
+    {
+      "topic_a": "T",
+      "topic_b": "S",
+      "edges_a": 221,
+      "edges_b": 245,
+      "shared": 18,
+      "jaccard": 0.04017857142857143
+    },
+    {
+      "topic_a": "T",
+      "topic_b": "V",
+      "edges_a": 221,
+      "edges_b": 281,
+      "shared": 21,
+      "jaccard": 0.04365904365904366
+    },
+    {
+      "topic_a": "E",
+      "topic_b": "S",
+      "edges_a": 267,
+      "edges_b": 245,
+      "shared": 30,
+      "jaccard": 0.06224066390041494
+    },
+    {
+      "topic_a": "E",
+      "topic_b": "V",
+      "edges_a": 267,
+      "edges_b": 281,
+      "shared": 24,
+      "jaccard": 0.04580152671755725
+    },
+    {
+      "topic_a": "S",
+      "topic_b": "V",
+      "edges_a": 245,
+      "edges_b": 281,
+      "shared": 33,
+      "jaccard": 0.06693711967545639
+    }
+  ],
+  "hubs": [
+    {
+      "respondent": "110",
+      "degree": 18,
+      "betweenness": 0.07715458276333789,
+      "eigenvector": 0.3505175763323376
+    },
+    {
+      "respondent": "90",
+      "degree": 16,
+      "betweenness": 0.09466484268125855,
+      "eigenvector": 0.16760124618185598
+    },
+    {
+      "respondent": "57",
+      "degree": 14,
+      "betweenness": 0.058549931600547195,
+      "eigenvector": 0.2745322316393775
+    },
+    {
+      "respondent": "91",
+      "degree": 12,
+      "betweenness": 0.047606019151846785,
+      "eigenvector": 0.10261848346369948
+    },
+    {
+      "respondent": "104",
+      "degree": 12,
+      "betweenness": 0.027086183310533515,
+      "eigenvector": 0.2740641983242118
+    }
+  ],
+  "bridges": [
+    {
+      "respondent": "90",
+      "degree": 16,
+      "betweenness": 0.09466484268125855
+    },
+    {
+      "respondent": "110",
+      "degree": 18,
+      "betweenness": 0.07715458276333789
+    },
+    {
+      "respondent": "57",
+      "degree": 14,
+      "betweenness": 0.058549931600547195
+    },
+    {
+      "respondent": "101",
+      "degree": 12,
+      "betweenness": 0.05170998632010944
+    },
+    {
+      "respondent": "91",
+      "degree": 12,
+      "betweenness": 0.047606019151846785
+    }
+  ],
+  "peripheral": [
+    {
+      "respondent": "36",
+      "degree": 1,
+      "mean_response": 0.9
+    },
+    {
+      "respondent": "59",
+      "degree": 1,
+      "mean_response": 1.1166666666666667
+    },
+    {
+      "respondent": "84",
+      "degree": 2,
+      "mean_response": 1.0333333333333334
+    },
+    {
+      "respondent": "106",
+      "degree": 3,
+      "mean_response": 1.0
+    },
+    {
+      "respondent": "26",
+      "degree": 3,
+      "mean_response": 1.25
+    }
+  ],
+  "centrality_correlations": {
+    "degree_vs_mean_response": 0.28253514730048873,
+    "degree_vs_response_std": -0.38946856442284683,
+    "degree_vs_betweenness": 0.8692198342475282
+  }
+}

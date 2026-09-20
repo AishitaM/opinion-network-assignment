@@ -1,0 +1,409 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Opinion Network Formation</title>
+<style>
+@page { size: letter; margin: 13mm 14mm 12mm 14mm; }
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 9.0pt;
+       line-height: 1.38; color: #17171a; margin: 0; }
+h1 { font-size: 19pt; line-height: 1.15; margin: 0 0 2mm; letter-spacing: -0.4pt; }
+h2 { font-size: 10.8pt; margin: 4.4mm 0 1.8mm; padding-bottom: 1.2mm;
+     border-bottom: 1.1pt solid #17171a; letter-spacing: -0.15pt; }
+h3 { font-size: 9.3pt; margin: 2.6mm 0 1mm; color: #2a2a2e; }
+p { margin: 0 0 1.8mm; text-align: justify; }
+ul, ol { margin: 0 0 2.1mm; padding-left: 5.2mm; }
+li { margin-bottom: 0.9mm; }
+code { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 8.4pt;
+       background: #f2f1ed; padding: 0.3mm 1mm; border-radius: 1.6pt; }
+.lede { font-size: 9.8pt; color: #3c3c42; margin-bottom: 3mm; }
+.meta { color: #62626a; font-size: 8.6pt; margin-bottom: 4mm; }
+figure { margin: 2.1mm 0 2.4mm; text-align: center; page-break-inside: avoid; }
+figure img { width: 87%; display: block; border: 0.4pt solid #e3e2dc; border-radius: 2pt; }
+figcaption { font-size: 7.9pt; text-align: left; color: #55555d; margin-top: 1.3mm; line-height: 1.35; }
+figcaption b { color: #17171a; }
+table { width: 100%; border-collapse: collapse; font-size: 8.2pt; margin: 1.8mm 0 2.6mm; }
+tr { page-break-inside: avoid; }
+th { text-align: left; border-bottom: 0.9pt solid #17171a; padding: 1.1mm 1.6mm;
+     font-weight: 600; }
+td { border-bottom: 0.4pt solid #e3e2dc; padding: 0.9mm 1.6mm; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+.box { background: #f6f5f1; border-left: 2.2pt solid #2a78d6; padding: 1.9mm 2.8mm;
+       margin: 2.2mm 0 2.6mm; page-break-inside: avoid; }
+.box p:last-child { margin-bottom: 0; }
+.ph { background: #fff2cc; border-bottom: 0.7pt dashed #b8860b; padding: 0 0.8mm;
+      font-weight: 600; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 6mm; }
+.pb { page-break-before: always; }
+.kpi { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.2mm; margin: 2.4mm 0 2.8mm; }
+.kpi div { background: #f6f5f1; border-radius: 2.4pt; padding: 2.2mm 2.6mm; }
+.kpi .v { font-size: 14pt; font-weight: 700; letter-spacing: -0.4pt; line-height: 1.1; }
+.kpi .l { font-size: 7.5pt; color: #55555d; margin-top: 0.6mm; line-height: 1.25; }
+.foot { margin-top: 5mm; padding-top: 2mm; border-top: 0.4pt solid #e3e2dc;
+        font-size: 7.8pt; color: #75757d; }
+</style></head><body>
+
+<h1>Opinion Network Formation</h1>
+<p class="meta">DPCN Assignment&nbsp;1 &nbsp;·&nbsp; A network analysis of 96 student responses across
+Technology, Education, Society &amp; Ethics, and Environment</p>
+
+<p class="lede">We build a similarity network over students from a 60-item Likert survey. The central
+difficulty is that the survey is overwhelmingly agreeable, so the obvious similarity measure makes
+everybody look alike. Correcting for item popularity and individual response style, and calibrating
+the edge threshold against a permutation null, produces a connected small-world network with eight
+detected opinion communities — communities that agree on values and divide on policy.</p>
+
+<h2>1. Team Name</h2>
+<p><b>nerds/ammy</b></p>
+
+<h2>2. GitHub Link to Code</h2>
+<p><a href="https://github.com/AishitaM/opinion-network-assignment">https://github.com/AishitaM/opinion-network-assignment</a></p>
+<p>The repository contains the raw export, the four-stage pipeline (<code>src/</code>), every
+generated table and <code>.graphml</code> network (<code>outputs/</code>), and this report. The whole
+study reproduces with <code>python src/run_all.py</code> in about ten seconds; all randomness is
+seeded from <code>config.RANDOM_SEED = 42</code>.</p>
+
+<h2>3. Dataset Documentation</h2>
+
+<h3>3.1 What the survey contains</h3>
+<p>The export holds <b>96 responses</b> to <b>60 statements</b>, evenly divided into four blocks of
+15: Technology &amp; AI (<code>T01–T15</code>), Education (<code>E01–E15</code>), Society &amp; Ethics
+(<code>S01–S15</code>) and Environment (<code>V01–V15</code>). Every statement is answered on a
+five-point agreement scale, with <i>No&nbsp;Comments</i> available as an opt-out. That is 5,760 cells.</p>
+
+<h3>3.2 Coding the scale</h3>
+<p>We code the scale symmetrically — Strongly Disagree&nbsp;=&nbsp;−2 through Strongly
+Agree&nbsp;=&nbsp;+2 — so that zero means neutral and the sign carries meaning directly, which makes the
+coded matrix easier to read and report. The choice is presentational rather than consequential: a
+1–5 coding differs from ours by an additive constant, and both centring steps in §4.3 remove that
+constant, so either coding yields identical centred profiles and an identical network. Treating the
+scale as interval-spaced is the standard simplification for Likert data and is the one assumption we
+make that the data cannot verify.</p>
+
+<h3>3.3 Missing data, and why 9 respondents are excluded</h3>
+<p>542 cells (9.4%) carry no opinion: 505 blank and 37 <i>No&nbsp;Comments</i>. Both are treated as
+missing — <i>No&nbsp;Comments</i> is a refusal, not a midpoint, and coding it as neutral would invent
+agreement that was never expressed. The missingness is <b>not scattered</b>: it falls in whole topic
+blocks (Fig. 1, right), which is the signature of people abandoning the form rather than skipping
+awkward questions.</p>
+<p>Five respondents answered nothing at all, four answered only the Technology block (45/60 missing),
+and one stopped after three blocks. We therefore admit a respondent as a node only if they answered
+at least <b>50%</b> of items. This removes <b>9</b> respondents and leaves <b>87 nodes</b>. The cut
+is unambiguous because of the block structure — no retained respondent sits near the boundary. The
+1.19% of cells still missing among those kept (62 cells) take that item's median, the neutral choice
+for an ordinal scale.</p>
+
+<h3>3.4 The property that drives every later decision</h3>
+<p>The class agrees with almost everything. The grand mean response is <b>+1.14</b>, 72% of answers
+are Agree or stronger, and only 6% are any kind of disagreement (Fig. 1, left). Respondents also
+differ in <i>how</i> agreeably they answer: individual mean responses run from −0.12 to +1.77
+(sd&nbsp;0.32). These two facts — item popularity and acquiescence bias — are nuisance signals that
+swamp genuine opinion differences, and Section 4 is largely about removing them.</p>
+
+<figure>
+  <img src="../outputs/figures/fig1_dataset.png" alt="Response distribution and missingness pattern">
+  <figcaption><b>Figure 1 — The dataset.</b> Left: the response distribution is heavily
+  agreement-skewed. Right: the raw answered/not-answered mask, respondents ordered by completeness;
+  the missingness forms clean topic-block bands, showing mid-survey abandonment rather than
+  item-level skipping.</figcaption>
+</figure>
+
+<h2>4. Pipeline Followed</h2>
+
+<h3>4.1 The network we are building</h3>
+<p>Nodes are <b>students</b>. An edge means <b>"these two students hold unusually similar opinion
+patterns"</b>. Edges are undirected and weighted by the strength of that similarity. The survey
+records no interaction between students, so this is a similarity network inferred from responses, not
+an observed social network — a distinction we return to in Section 6.</p>
+
+<h3>4.2 Step 1 — why the obvious similarity fails</h3>
+<p>The natural first choice is agreement similarity, <code>1 − mean|Δ| / 4</code>. It does not work.
+Its mean across all 3,741 pairs is <b>0.79</b> and <b>94%</b> of pairs exceed 0.70 (Fig. 2, left).
+Because nearly everyone agrees with nearly everything, near-identical scores are produced by students
+with quite different views. Any threshold on this measure yields either a near-complete graph or an
+arbitrary slice of one. We report this explicitly because it motivates everything that follows.</p>
+
+<h3>4.3 Step 2 — double centring</h3>
+<p>Two nuisance effects must go. <b>Item popularity</b>: agreeing that "climate change requires
+immediate action" says little, since 94% agree. We remove it by z-scoring each item across
+respondents, so each answer becomes a position <i>relative to the class</i> on that statement.
+<b>Acquiescence</b>: some students tick Strongly Agree throughout. We remove it by subtracting each
+respondent's mean z-score, so what remains is the <i>shape</i> of their opinion profile rather than
+its level. Neither operation discards a respondent or an item, but both are deliberately
+lossy: centring removes the item and person means, and those means are not recoverable from the
+centred matrix. That is the intent — the removed quantities are exactly the nuisance signals — and it
+means the network describes <i>relative</i> opinion patterns only, never absolute agreement levels.</p>
+
+<h3>4.4 Step 3 — edge weight</h3>
+<p>Edge weight is the Pearson correlation between two double-centred profiles. It ranges from −0.49
+to +0.56 with mean −0.01 and sd 0.15 (Fig. 2, right) — a genuine spread, unlike the naive measure.
+A positive weight now means "these two deviate from the class consensus in the same direction",
+which is what an opinion tie should mean.</p>
+
+<h3>4.5 Step 4 — calibrating the threshold instead of choosing it</h3>
+<p>A hand-picked cut-off would be the weakest link in the study, so we calibrate one. We shuffle each
+item independently <b>500 times</b>, which preserves every item's marginal distribution while
+destroying any association between respondents, and recompute the correlations. This is the
+distribution the pipeline produces from structureless data. We keep an edge only if its correlation
+exceeds the <b>95th percentile</b> of that null: <b>τ = 0.205</b>.</p>
+<p>Fig. 3 shows this lands in a workable regime. Edge count falls smoothly and the network
+fragments past ≈0.24 — connectivity persists up to <b>τ ≈ 0.238</b>, and by 0.30 the graph has 18
+isolates and 26 components. The selected threshold <b>retains a connected network</b> with no
+isolates, comfortably inside that range rather than at its edge. The choice is therefore supported on
+two independent grounds: statistical (it is calibrated against the null) and structural (it sits
+before fragmentation, so every student remains in the analysis).</p>
+
+<div class="box">
+<p><b>An honest caveat.</b> τ is a <i>structural</i> filter, not a per-pair significance claim.
+Controlling the false discovery rate across all 3,741 pairs at 5% (Benjamini–Hochberg) leaves only
+one edge — with 87 respondents and 60 items, no individual pair is separately significant. We report
+the network as a descriptive structure whose <i>aggregate</i> properties we then test against null
+models, and Section 5 tests exactly that.</p>
+</div>
+
+<figure>
+  <img src="../outputs/figures/fig2_similarity.png" alt="Naive similarity versus double-centred correlation">
+  <figcaption><b>Figure 2 — Why the correction is necessary.</b> Left: raw agreement similarity is
+  degenerate — 94% of pairs score above 0.70. Right: after double centring, the observed correlation
+  distribution is visibly wider than the permutation null and carries a right tail the null does not;
+  τ is the null's 95th percentile.</figcaption>
+</figure>
+
+<figure>
+  <img src="../outputs/figures/fig3_threshold.png" alt="Threshold sensitivity sweep">
+  <figcaption><b>Figure 3 — The threshold is not arbitrary.</b> Across the sweep (0.05 steps),
+  τ = 0.205 (dashed) sits in the connected regime; a finer search puts the loss of connectivity at
+  ≈0.238, and beyond it the network fragments and local structure collapses.</figcaption>
+</figure>
+
+<h3>4.6 Step 5 — the parallel networks</h3>
+<p>The same procedure, each with its own independently calibrated null, is applied to the four
+15-item topic blocks, and once more transposed to give an item–item network (which statements move
+together). These let us ask whether opinion structure is global or topic-specific.</p>
+
+<h2>5. Analysis and Visualizations</h2>
+
+<div class="kpi">
+  <div><div class="v">87</div><div class="l">students (nodes), one connected component</div></div>
+  <div><div class="v">304</div><div class="l">edges · density 0.081 · mean degree 7.0</div></div>
+  <div><div class="v">×2.87</div><div class="l">clustering vs a random graph (σ = 2.74)</div></div>
+  <div><div class="v">8</div><div class="l">communities detected, Q = 0.430 (z = 9.5 vs null)</div></div>
+</div>
+
+<h3>5.1 Global structure</h3>
+<table>
+<tr><th>Metric</th><th class="n">Observed</th><th class="n">Random baseline</th><th>Reading</th></tr>
+<tr><td>Nodes / edges</td><td class="n">87 / 304</td><td class="n">87 / 304</td><td>matched by construction</td></tr>
+<tr><td>Density</td><td class="n">0.081</td><td class="n">0.081</td><td>sparse</td></tr>
+<tr><td>Mean degree</td><td class="n">7.0</td><td class="n">7.0</td><td>range 1–18</td></tr>
+<tr><td>Average clustering</td><td class="n">0.229</td><td class="n">0.080</td><td><b>2.87× random</b></td></tr>
+<tr><td>Average path length</td><td class="n">2.61</td><td class="n">2.49</td><td>1.05× random</td></tr>
+<tr><td>Diameter</td><td class="n">5</td><td class="n">—</td><td>compact</td></tr>
+<tr><td>Small-world σ</td><td class="n">2.74</td><td class="n">1.00</td><td><b>small-world</b></td></tr>
+<tr><td>Degree assortativity</td><td class="n">+0.037</td><td class="n">≈0</td><td>essentially neutral</td></tr>
+<tr><td>Modularity Q</td><td class="n">0.430</td><td class="n">0.334</td><td><b>z = 9.5, p &lt; 0.005</b></td></tr>
+</table>
+
+<p>The clustering and path-length baselines above are Erdős–Rényi graphs matched on <i>n</i> and
+<i>m</i> only — unweighted, with degrees not preserved — so they bound those two comparisons
+loosely; the modularity baseline is the stricter degree- and weight-preserving null described in
+§5.2. With that caveat, the network is a <b>small world</b>: far more clustered than chance while
+remaining almost as navigable (Fig. 6). Opinion similarity is strongly transitive — if A resembles B and B resembles C,
+A tends to resemble C — yet any two students are separated by only 2.6 steps. The degree distribution
+is unimodal and mildly right-skewed (CV 0.44, skew +0.79), <b>not</b> scale-free: there is no small
+set of opinion "celebrities", only a gentle gradient from typical to distinctive.</p>
+<p>Degree assortativity is +0.037 — effectively zero. Well-connected students are no more likely to
+tie to each other than to peripheral ones, so the network has no dense central core dominating the
+structure. Degree and betweenness correlate at r = 0.87, meaning the same students who are typical
+are also the bridges between groups; there is no separate class of brokers.</p>
+
+<figure>
+  <img src="../outputs/figures/fig4_network.png" alt="The opinion network">
+  <figcaption><b>Figure 4 — The opinion network.</b> 87 students, 304 similarity ties, one connected
+  component. Node size is degree; colour is the student's mean response (a diverging scale, so blue
+  marks the more reserved and red the more emphatic). Communities are labelled at their centres
+  rather than coloured, because eight categorical hues cannot be told apart reliably by
+  colour-blind readers.</figcaption>
+</figure>
+
+<h3>5.2 Community structure</h3>
+<p>Louvain finds <b>8 communities</b> of 7–16 students (Q = 0.430). Two checks establish that this is
+real rather than an artefact of the algorithm, which will partition any graph:</p>
+<ul>
+<li><b>Against a null model.</b> 200 randomisations by double edge swap — which preserves each
+node's degree <i>exactly</i> and to which the observed edge weights are randomly reassigned, so the
+null is scored with the same weighted Louvain and weighted modularity as the observed graph — give
+Q = 0.334 ± 0.010. The observed Q sits <b>9.5 standard deviations</b> above that (p &lt; 0.005).
+The comparison is like-for-like in degree sequence, edge count and weight multiset; what it cannot
+control for is the correlational origin of the weights, since any similarity matrix carries some
+transitivity by construction.</li>
+<li><b>Stability.</b> Across 100 restarts, two students in the same reported community land together
+<b>71%</b> of the time, versus <b>7%</b> for students in different ones — a tenfold separation.</li>
+</ul>
+<p>The structure appears <b>fine-grained</b> at the settings we used. Lowering the Louvain
+resolution parameter over the range we tried (0.4–1.2) did not merge the eight into two or three
+larger camps but fragmented them further (13 groups at resolution 0.4–0.8, with lower Q). We did not
+search the parameter space exhaustively or test alternative community-detection algorithms, so this
+is evidence about our settings rather than proof that no coarser partition exists.</p>
+
+<figure>
+  <img src="../outputs/figures/fig5_communities.png" alt="The eight communities, faceted">
+  <figcaption><b>Figure 5 — The eight communities.</b> The same layout in every panel, with one
+  community and its internal ties highlighted. Each occupies a compact, distinct region: internal
+  densities of 0.25–0.52 against a global 0.081, i.e. 3–6× denser inside than the network at large.</figcaption>
+</figure>
+
+<figure>
+  <img src="../outputs/figures/fig6_structure.png" alt="Structural metrics">
+  <figcaption><b>Figure 6 — Structural signature.</b> Left: degrees are unimodal, not power-law.
+  Middle: clustering is 2.87× the random baseline while path length is only 1.05× — the small-world
+  signature. Right: degree and betweenness rise together (r = 0.87).</figcaption>
+</figure>
+
+<h3>5.3 Opinion structure is topic-specific</h3>
+<p>Building a separate network per topic block gives the study's most striking result. The four topic
+networks <b>barely share any edges</b>: pairwise Jaccard overlap ranges from <b>0.040</b> (Technology–Society)
+to <b>0.067</b> (Society–Environment). Knowing that two students think alike about AI tells you almost
+nothing about whether they think alike about the environment. Each topic network is also sparser and
+<i>more</i> modular than the pooled one (Q = 0.52–0.58 against 0.43), so single-topic opinion splits
+into tighter, better-separated groups than the pooled view suggests.</p>
+
+<figure>
+  <img src="../outputs/figures/fig7_topics.png" alt="Topic-specific networks">
+  <figcaption><b>Figure 7 — Four topics, four different networks.</b> Positions are shared so the
+  panels are comparable; only the edges differ. Bottom left: edge-set overlap between topic networks
+  never exceeds 0.067. Bottom right: every topic is sparser yet more modular than the pooled network
+  (indexed to pooled = 1.0).</figcaption>
+</figure>
+
+<h3>5.4 What the communities disagree about</h3>
+<p>A community is only meaningful if it corresponds to a difference in stated opinion. Testing every
+item across the eight groups (Kruskal–Wallis, Benjamini–Hochberg at 5%), <b>31 of 60 items</b>
+significantly separate them. The largest gaps between the most- and least-agreeing community are
+<b>E03, compulsory attendance</b> (2.11 Likert points — from −1.8 to +0.3, genuine disagreement
+rather than differing enthusiasm) and <b>T12, stricter AI regulation</b> (2.06).</p>
+
+<figure>
+  <img src="../outputs/figures/fig8_discriminating.png" alt="Items that discriminate between communities">
+  <figcaption><b>Figure 8 — What actually divides the class.</b> The 14 most discriminating statements
+  by community mean; values are printed so the panel does not rely on colour. Education items
+  dominate the top of the list, and the two widest splits (E03, T12) are both about <i>rules</i>.</figcaption>
+</figure>
+
+<h2>6. Results and Discussion</h2>
+
+<h3>6.1 Eight groups rather than two camps</h3>
+<p>At the selected settings, we found <b>eight communities rather than a clear two-group
+partition</b>. Each is densely tied inside (internal density 0.25–0.52, against 0.081 globally) and
+loosely tied to the others, and none is isolated from the rest. Every one of the eight has a
+<i>positive</i> mean response (+0.96 to +1.33), and degree assortativity is ≈0.</p>
+<p>That combination is worth stating precisely. A two-camp structure would show two large
+communities with opposite-signed mean opinions; what we observe instead is high modularity among
+communities that are uniformly agreeable on average, separated by <i>which</i> statements they
+endorse rather than by overall agreement level (§5.4). We describe this as fragmentation into
+like-minded groups, and make no broader claim about polarisation in the class — the survey measures
+stated opinion at a single point in time, not the dynamics that claim would require.</p>
+
+<h3>6.2 Consensus on values, division on policy</h3>
+<p>Item-level statistics explain why. Agreement and consensus move together (r = −0.78 between an
+item's mean and its standard deviation, Fig. 9): the more the class endorses a statement, the more it
+agrees about it. The consensus items are ethical near-universals — lifelong learning (E15, +1.71,
+sd 0.50), corporate environmental accountability (V13, +1.68), water conservation (V06, +1.53). The
+contested items are all <b>institutional rules that bind the students themselves</b>: online learning
+(E04, sd 1.17), compulsory attendance (E03, mean −0.94 — the only item the class rejects outright),
+and exams as a measure of knowledge (E02).</p>
+<p>The pattern holds at the block level. Environment draws the widest agreement (mean +1.39, sd 0.72)
+and Education the least (mean +0.91, sd 0.88). Students converge on abstract external principles and
+diverge on concrete internal policy — a plausible reading being that the former cost them nothing
+while the latter govern their daily lives.</p>
+
+<figure>
+  <img src="../outputs/figures/fig9_items.png" alt="Item consensus landscape">
+  <figcaption><b>Figure 9 — Consensus rises with agreement.</b> Left: each of the 60 statements by
+  mean and standard deviation; the relationship is strongly negative (r = −0.78). The contested
+  corner is almost entirely Education items. Right: Environment is the most endorsed and least
+  contested block, Education the least endorsed and most contested.</figcaption>
+</figure>
+
+<h3>6.3 Opinion is compartmentalised</h3>
+<p>The topic networks overlapping at Jaccard ≤ 0.067 (Section 5.3) says something about how these
+students hold opinions: their views are <b>issue-specific rather than ideological</b>. A single
+latent "progressive–conservative" axis would produce substantially overlapping topic networks,
+because the same axis would order students the same way in every domain. It does not. Students who
+cluster together on AI regulation scatter on environmental policy. This is a network-level finding
+that item-by-item statistics cannot produce, and it is the main argument for having built the
+network at all.</p>
+
+<h3>6.4 What the small-world structure means here</h3>
+<p>High clustering with short paths indicates opinion similarity is locally transitive but globally
+connected. No student is opinion-isolated (minimum degree 1, no isolates), and the most distant pair
+is 5 steps apart. In a deliberative reading, an argument could travel across the whole class through
+few intermediaries while still encountering dense pockets of agreement — the structure supports both
+consensus-building and local reinforcement.</p>
+
+<h3>6.5 Limitations</h3>
+<ul>
+<li><b>Inferred, not observed.</b> Edges are response similarity, not interaction or influence. We
+cannot infer who talks to whom, and nothing here supports a causal claim about opinion spread.</li>
+<li><b>No pair is individually significant.</b> Under strict FDR control across 3,741 pairs, only one
+edge survives. Aggregate structure is tested against null models and holds; individual edges should
+not be read as established relationships.</li>
+<li><b>Interval-scale assumption.</b> Coding Likert responses as equally spaced integers is standard
+but not verifiable from the data.</li>
+<li><b>Sample and scope.</b> 87 usable respondents from one class; the 9 excluded are excluded
+non-randomly (they abandoned the survey), so any systematic difference in their views is invisible.</li>
+<li><b>Resolution limit.</b> Louvain cannot resolve communities below a size set by the network's
+scale, so groups smaller than ~5 students may be absorbed into larger ones.</li>
+</ul>
+
+<h3>6.6 Conclusion</h3>
+<p>Treating survey responses as a network was worth doing because it answered a question the raw
+responses could not. Item statistics show <i>what</i> the class thinks; the network shows that the
+class is organised into eight detected opinion groups that survive our null-model and stability
+checks, that those groups agree
+on values and divide on institutional rules, and that group membership is <b>not transferable across
+topics</b>. The single methodological lesson is that the correction step was decisive: on raw
+agreement similarity, 94% of pairs looked alike and none of this structure was visible.</p>
+
+<h2>7. Individual Contribution</h2>
+<p>Every member's work is traceable to specific files and commits in the repository.</p>
+<table>
+<tr><th>Member</th><th>Owned</th><th>Specific tasks completed</th></tr>
+<tr>
+  <td><b>Aishita Marri</b><br>2023113027</td>
+  <td>Visualisation &amp; repository<br><code>src/visualize.py</code>,
+      <code>src/vizstyle.py</code>, <code>report/</code></td>
+  <td>Created and maintained the GitHub repository; built the shared plotting style and the
+  colour-blind-validated palette; produced Figures 4–9, including the community-aware layout and the
+  faceted community view; assembled and typeset this report; wrote §6 and the repository README.</td>
+</tr>
+<tr>
+  <td><b>Abdul Rahman Mujtaba</b><br>2023102024</td>
+  <td>Analysis &amp; validation<br><code>src/analyze.py</code></td>
+  <td>Computed global metrics and the small-world comparison against random baselines; computed all
+  centralities; ran Louvain with the degree- and weight-preserving null and the 100-restart
+  stability check; built the Kruskal–Wallis discriminating-item test; computed topic-network
+  agreement; wrote §5.</td>
+</tr>
+<tr>
+  <td><b>Anmol Sharma</b><br>2024101148</td>
+  <td>Data preparation &amp; network construction<br><code>src/prepare_data.py</code>,
+      <code>src/build_network.py</code>, <code>src/config.py</code></td>
+  <td>Parsed the raw export and item metadata; designed the coding scheme; diagnosed the missingness
+  as block-wise abandonment and set the 50% completeness rule; identified the degeneracy of naive
+  agreement similarity; implemented double centring, the permutation null model and the BH-FDR check
+  (validated against SciPy); ran the threshold sweep; built the topic and item networks; produced
+  Figures 1–3; wrote §3 and §4.</td>
+</tr>
+</table>
+<p><b>Joint work.</b> The choice of nodes and edge semantics, the decision to calibrate rather than
+hand-pick the edge threshold, and the interpretation in §6 were agreed by all three members. Each
+member reviewed another's code; that review produced the corrections to the modularity null model
+(§5.2), the connectivity threshold (§4.5) and the claims in §3.2 and §6.1.</p>
+
+<div class="foot">
+Reproduce with <code>python src/run_all.py</code> (≈10 s, seed 42). All figures and every number
+quoted above are regenerated from <code>data/raw/Survey_Results_UC.csv</code> by that command.
+</div>
+
+</body></html>

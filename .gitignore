@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.ipynb_checkpoints/
+
+# Root-level duplicates; canonical copies live in data/raw/ and docs/
+/Survey_Results_UC.csv
+/DPCN_Assignment_1.pdf

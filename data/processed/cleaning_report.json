@@ -1,0 +1,107 @@
+{
+  "raw_respondents": 96,
+  "n_items": 60,
+  "items_per_topic": {
+    "T": 15,
+    "E": 15,
+    "S": 15,
+    "V": 15
+  },
+  "raw_cells": 5760,
+  "raw_label_counts": {
+    "Strongly Agree": 2251,
+    "Agree": 1914,
+    "Neutral": 686,
+    "(blank)": 505,
+    "Disagree": 256,
+    "Strongly Disagree": 111,
+    "No Comments": 37
+  },
+  "missing_cells_raw": 542,
+  "missing_rate_raw": 0.09409722222222222,
+  "min_completeness": 0.5,
+  "dropped_respondents": 9,
+  "dropped_detail": {
+    "44": 0.0,
+    "60": 0.0,
+    "68": 0.0,
+    "73": 0.0,
+    "78": 0.0,
+    "30": 0.25,
+    "39": 0.25,
+    "77": 0.25,
+    "87": 0.25
+  },
+  "retained_respondents": 87,
+  "residual_missing_cells": 62,
+  "residual_missing_rate": 0.011877394636015325,
+  "imputed_cells_per_item_max": 3,
+  "grand_mean": 1.1438697318007662,
+  "acquiescence_row_mean_min": -0.11666666666666667,
+  "acquiescence_row_mean_max": 1.7666666666666666,
+  "acquiescence_row_mean_std": 0.31587124644636616,
+  "most_consensual": [
+    {
+      "code": "E15",
+      "statement": "Continuous learning and skill development are essential throughout one's career.",
+      "mean": 1.7126436781609196,
+      "std": 0.5036620770293079
+    },
+    {
+      "code": "V13",
+      "statement": "Companies should be held accountable for the environmental impacts of their activities.",
+      "mean": 1.6781609195402298,
+      "std": 0.5601962462110149
+    },
+    {
+      "code": "V06",
+      "statement": "Water conservation should be a priority in households, institutions, and industries.",
+      "mean": 1.528735632183908,
+      "std": 0.587447780158593
+    },
+    {
+      "code": "S09",
+      "statement": "Universities should promote an inclusive environment where different viewpoints can be discussed respectfully.",
+      "mean": 1.4827586206896552,
+      "std": 0.587902637199377
+    },
+    {
+      "code": "S05",
+      "statement": "Individuals should have greater control over how their personal data are collected and used.",
+      "mean": 1.632183908045977,
+      "std": 0.5928830334610233
+    }
+  ],
+  "most_polarised": [
+    {
+      "code": "E04",
+      "statement": "High-quality online learning can effectively complement classroom teaching.",
+      "mean": 0.4367816091954023,
+      "std": 1.1683933455349718
+    },
+    {
+      "code": "E03",
+      "statement": "Class attendance should be compulsory for all courses.",
+      "mean": -0.9425287356321839,
+      "std": 1.124322243792051
+    },
+    {
+      "code": "E02",
+      "statement": "Traditional written examinations accurately measure a student's knowledge.",
+      "mean": -0.16091954022988506,
+      "std": 1.1193183475751618
+    },
+    {
+      "code": "T08",
+      "statement": "AI-assisted diagnosis should become routine in healthcare.",
+      "mean": 0.06896551724137931,
+      "std": 1.0974929511695648
+    },
+    {
+      "code": "S02",
+      "statement": "Universities should encourage students to participate in community service activities.",
+      "mean": 0.8390804597701149,
+      "std": 1.055148652796117
+    }
+  ]
+}

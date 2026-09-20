@@ -1,0 +1,53 @@
+{
+  "n_nodes": 87,
+  "n_possible_pairs": 3741,
+  "naive_similarity_mean": 0.7892876236300455,
+  "naive_similarity_min": 0.49583333333333335,
+  "naive_frac_above_0_7": 0.9387864207431168,
+  "corr_mean": -0.010407302440836657,
+  "corr_std": 0.15206105864838687,
+  "corr_min": -0.49288763406136465,
+  "corr_max": 0.5572342806834445,
+  "null_mean": -0.011470383752619486,
+  "null_std": 0.12829618796294906,
+  "threshold_tau": 0.20495110429583546,
+  "threshold_fdr": 0.5572342806834445,
+  "n_significant_fdr": 1,
+  "n_edges": 304,
+  "density": 0.08126169473402833,
+  "isolates": 0,
+  "n_components": 1,
+  "giant_component": 87,
+  "mean_edge_weight": 0.2766016090424549,
+  "topics": {
+    "T": {
+      "threshold": 0.44259350312098067,
+      "edges": 221,
+      "density": 0.0590751136059877,
+      "mean_weight": 0.5488140636668404
+    },
+    "E": {
+      "threshold": 0.442766029281372,
+      "edges": 267,
+      "density": 0.07137129109863673,
+      "mean_weight": 0.5637892669882795
+    },
+    "S": {
+      "threshold": 0.44368589197653985,
+      "edges": 245,
+      "density": 0.06549051055867415,
+      "mean_weight": 0.5725268584703372
+    },
+    "V": {
+      "threshold": 0.44629637606541667,
+      "edges": 281,
+      "density": 0.07511360598770382,
+      "mean_weight": 0.6134325351996954
+    }
+  },
+  "item_network": {
+    "threshold": 0.16379310581248882,
+    "nodes": 60,
+    "edges": 178
+  }
+}
